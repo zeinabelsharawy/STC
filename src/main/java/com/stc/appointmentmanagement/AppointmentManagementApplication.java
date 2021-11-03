@@ -25,7 +25,7 @@ public class AppointmentManagementApplication {
     public Docket postsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.musala.gatewaymanagement.modules.gateway.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.stc.appointmentmanagement.modules.appointment.rest"))
                 .build();
     }
 
