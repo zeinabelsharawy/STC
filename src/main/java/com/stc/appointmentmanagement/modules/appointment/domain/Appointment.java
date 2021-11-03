@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public class Appointment extends BaseEntity<Long> {
 
     @NotNull
-    @NotBlank(message = "Appointment date and time are mandatories")
     @Column(name = "appointment_date")
     private LocalDateTime appointmentDate;
 

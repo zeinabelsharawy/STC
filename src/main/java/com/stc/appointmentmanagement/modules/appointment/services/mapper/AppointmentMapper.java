@@ -25,11 +25,15 @@ public class AppointmentMapper {
     }
 
     public Appointment toEntity(AppointmentDto dto, Appointment entity) {
-        entity.setAppointmentDate(dto.getAppointmentDate());
+        if (dto.getAppointmentDate() != null) {
+            entity.setAppointmentDate(dto.getAppointmentDate());
+        }
         entity.setCancelledAt(dto.getCancelledAt());
         entity.setStatus(dto.getStatus());
         entity.setLog(dto.getLog());
-        entity.setPatientName(dto.getPatientName());
+        if (dto.getPatientName() != null) {
+            entity.setPatientName(dto.getPatientName());
+        }
         return entity;
     }
 }

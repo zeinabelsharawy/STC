@@ -71,7 +71,7 @@ public class AppointmentService {
     }
 
     public void save(AppointmentDto dto) {
-        System.out.println("AppointmentService:: Save, Patient Name:"+dto.getPatientName()+"  Appointment Date:"+dto.getAppointmentDate());
+        System.out.println("AppointmentService:: Save, Patient Name:" + dto.getPatientName() + "  Appointment Date:" + dto.getAppointmentDate());
 //        System.out.println(appointmentRepository.findAllByPatientNameAndAppointmentDate(dto.getPatientName(), dto.getAppointmentDate()));
         if (appointmentRepository.findAllByPatientNameAndAppointmentDate(dto.getPatientName(), dto.getAppointmentDate()).size() > 1) {
             throw new AppointmentConflictsException("patient already have an appointment in this time !");
@@ -85,8 +85,11 @@ public class AppointmentService {
 
     public void update(Long id, AppointmentDto dto, String status) {
         Appointment appointment = appointmentRepository.findById(id).orElseThrow();
-        appointmentMapper.toEntity(dto, appointment);
+        appointment = appointmentMapper.toEntity(dto, appointment);
+        System.out.println(appointment.getAppointmentDate());
         appointment.setStatus(status);
+        appointment.setCancelledAt(LocalDateTime.now());
+        validateInputs(appointment, "cancel");
         appointmentRepository.save(appointment);
     }
 
@@ -105,7 +108,7 @@ public class AppointmentService {
                     throw new InvalidInputsException("Patient Name is mandatory");
                 }
                 break;
-            case "cancele":
+            case "cancel":
                 if (appointment.getLog() == null || appointment.getLog().isEmpty()) {
                     throw new InvalidInputsException("Log is mandatory");
                 }
