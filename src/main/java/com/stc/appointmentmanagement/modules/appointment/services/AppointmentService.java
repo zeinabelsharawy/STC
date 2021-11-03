@@ -76,11 +76,11 @@ public class AppointmentService {
         if (appointmentRepository.findAllByPatientNameAndAppointmentDate(dto.getPatientName(), dto.getAppointmentDate()).size() > 1) {
             throw new AppointmentConflictsException("patient already have an appointment in this time !");
         }
-//        Appointment appointment = appointmentMapper.toEntity(dto);
-//        validateInputs(appointment, "save");
-//        appointment.setStatus("accepted");
-//        System.out.println(appointment.getId());
-//        appointmentRepository.save(appointment);
+        Appointment appointment = appointmentMapper.toEntity(dto);
+        validateInputs(appointment, "save");
+        appointment.setStatus("accepted");
+        System.out.println(appointment.getId());
+        appointmentRepository.save(appointment);
     }
 
     public void update(Long id, AppointmentDto dto, String status) {
